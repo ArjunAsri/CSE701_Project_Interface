@@ -1,0 +1,71 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity filter_qsys_interface_tb is
+
+end entity;
+
+
+architecture beh of filter_qsys_interface_tb is
+
+		signal clk_tb :  std_logic;
+		signal reset_tb :  std_logic:= '0';
+		
+		signal read_avalon_s0_tb        	:     std_logic                     ;             -- read
+		signal write_avalon_s0_tb      	:     std_logic                     := '0';             -- write
+		signal writedata_avalon_s0_tb  	:     std_logic_vector(63 downto 0) := (others => 'X'); -- write_data
+		signal readdata_avalon_s0_tb   	:    std_logic_vector(63 downto 0) := (others => 'X')  ;                  -- read_data
+
+
+
+-- component filter_qsys_interface is
+	-- port(
+
+		-- clk : in std_logic;
+		-- reset : in std_logic;
+		
+		-- read_avalon_s0        	: in    std_logic                     ;             -- read
+		-- write_avalon_s0      	: in    std_logic                    ;             -- write
+		-- writedata_avalon_s0  	: in    std_logic_vector(63 downto 0) ; -- write_data
+		-- readdata_avalon_s0   	: out   std_logic_vector(63 downto 0)                     -- read_data
+
+	-- );
+--end component;
+
+begin
+
+
+-- filter_qsys_interface_inst : component filter_qsys_interface
+	-- port MAP(
+
+		-- clk => clk_tb,
+		-- reset => reset_tb,
+		
+		-- read_avalon_s0        	=> read_avalon_s0_tb,
+		-- write_avalon_s0      	=> write_avalon_s0_tb,
+		-- writedata_avalon_s0  	=> writedata_avalon_s0_tb,
+		-- readdata_avalon_s0   	=>readdata_avalon_s0_tb
+
+	-- );
+
+
+test_signals:process
+begin
+		read_avalon_s0_tb <= '0'; 
+		write_avalon_s0_tb <= '1';
+		writedata_avalon_s0_tb(7 downto 0) <= x"01"; 
+		writedata_avalon_s0_tb(63 downto 8) <= x"11112222555544"; 
+
+end process test_signals;
+
+clk_25: process
+begin
+	clk_tb <= '1';
+	wait for 20 ns;
+	clk_tb <= '0';
+	wait for 20 ns;
+
+end process clk_25;
+
+end architecture ;
